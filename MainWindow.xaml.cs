@@ -32,7 +32,7 @@ namespace CryptoApp
 
 		
 
-		private async void lst1_Initialized(object sender, EventArgs e)
+		private void lst1_Initialized(object sender, EventArgs e)
 		{
 
 			
@@ -41,7 +41,8 @@ namespace CryptoApp
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			LbNmb_Initialized(sender, e);
-            System.Windows.MessageBox.Show(Controllers.CryptoCurrencyController.GetCurrencyById("bitcoin").Result.ToString());
+            //
+			//System.Windows.MessageBox.Show((await Controllers.CryptoCurrencyController.GetCurrencyById("bitcoin")).ToString());
 		}
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)

@@ -19,7 +19,6 @@ namespace CryptoApp.Controllers
 				{ "limit" , limit.ToString()}
 			};
 			var response = await ApiHandler.QueryAsync("/assets", queryParams);
-			//HttpResponseMessage response = client.GetAsync("http://api.coincap.io/v2/assets").Result;
 			string jsonResponse = await response.Content.ReadAsStringAsync();
 			ResponseData currencies = new ResponseData();
 			try
@@ -38,10 +37,9 @@ namespace CryptoApp.Controllers
 		public static async Task<CryptoCurrency> GetCurrencyById(string id) {
 			HttpClient client = new HttpClient();
 			string url = $"/assets/{id}";
-			//var crypCur = client.GetAsync(url).Result;
 			var response = await ApiHandler.QueryAsync(url);
 			string jsonResponse = await response.Content.ReadAsStringAsync();
-			MessageBox.Show(jsonResponse);
+			//MessageBox.Show(jsonResponse);
 			SingleCurrencyResponseModel responseData = new SingleCurrencyResponseModel();
 			try
 			{
