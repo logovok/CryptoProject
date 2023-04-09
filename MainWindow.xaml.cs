@@ -1,5 +1,4 @@
-﻿using CryptoApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +14,15 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CryptoApp.Cache;
+using CryptoApp.Models;
 
 namespace CryptoApp
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
 	{
 		public MainWindow()
 		{
@@ -75,10 +76,12 @@ namespace CryptoApp
 			}
 		}
 
-		private void LbNmb_Initialized(object sender, EventArgs e)
+		private async void LbNmb_Initialized(object sender, EventArgs e)
 		{
-			var popIds = Controllers.CryptoCurrencyController
-				.LoadCurrency(int.Parse(LbNmb.Content.ToString())).Result;
+			var popIds = await Cashe.TryFromCache(int.Parse(LbNmb.Content.ToString()));
+
+			//var popIds = Controllers.CryptoCurrencyController
+			//	.LoadCurrency(int.Parse(LbNmb.Content.ToString())).Result;
 			lst1.Items.Clear();
 			foreach (var currency in popIds.data)
 			{

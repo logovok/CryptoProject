@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CryptoApp.Models
 {
-	public class CryptoCurrency
+	public class CryptoCurrency : IComparable<CryptoCurrency>
+
 	{
         public string id { get; set; }
         public string rank { get; set; }
@@ -20,14 +21,19 @@ namespace CryptoApp.Models
         public string explorer { get; set; }
 
         [NonSerialized]
-        public long updateTime;
+        public DateTime updateTime;
 
         public CryptoCurrency() {
-            updateTime = DateTime.Now.Second;
+            updateTime = DateTime.Now;
         }
 		public override string ToString()
 		{
 			return id + " " + rank + " " + symbol + " " + name + " " + supply;
+		}
+
+		public int CompareTo(CryptoCurrency? other)
+		{
+			return this.rank.CompareTo(other.rank);
 		}
 	}
 }

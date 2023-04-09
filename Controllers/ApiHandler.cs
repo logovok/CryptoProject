@@ -38,13 +38,5 @@ namespace CryptoApp.Controllers
 
 	}
 
-	class CrypCurrency
-	{
-		string id { get; set; }
-
-		public override string ToString()
-		{
-			return id;
-		}
-	}
+	
 }
