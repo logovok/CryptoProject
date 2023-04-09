@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoApp.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,13 @@ namespace CryptoApp.Models
 
 	internal class CandleModel
 	{
-		//"open": "0.0708000000000000",
-		//     "high": "0.0710450000000000",
-		//     "low": "0.0706434000000000",
-		//     "close": "0.0708350100000000",
-		//     "volume": "1818.1433015300000000",
-		//     "period": 1530720000000
-		//[NonSerialized]
+		//public static void test() {
+		//	Dictionary<string, string> prams = new Dictionary<string, string> {
+		//		{ , }
+		//	};
+		//ApiHandler.QueryAsync("/candles")
+		//}
+	
 		private double Open;
 		public double open
 		{

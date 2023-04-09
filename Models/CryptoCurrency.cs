@@ -33,7 +33,7 @@ namespace CryptoApp.Models
 
 		public int CompareTo(CryptoCurrency? other)
 		{
-			return this.rank.CompareTo(other.rank);
+			return int.Parse(rank).CompareTo(int.Parse(other.rank));
 		}
 	}
 }

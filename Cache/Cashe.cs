@@ -13,31 +13,47 @@ namespace CryptoApp.Cache
 {
 	internal class Cashe
 	{
-		public static int refrashRateSeconds = 15;
+		public static int refrashRateSeconds = 30;
 		public static int candleRefashRateSeconds = 60;
 		public static Hashtable cashedInfo = new Hashtable();
+		private static DateTime? lastFullRefresh;
 		public static async Task<CryptoCurrency> TryFromCache(string id) {
 			if (cashedInfo.ContainsKey(id))
 			{
-				if ((DateTime.Now - ((CryptoCurrency)cashedInfo[id]).updateTime > TimeSpan.FromSeconds(refrashRateSeconds)))
+				if ((DateTime.Now - ((CryptoCurrency)cashedInfo[id]).updateTime).TotalSeconds < refrashRateSeconds)
 				{
 					return (CryptoCurrency)cashedInfo[id];
 				}
 				
 			}
-			return await Controllers.CryptoCurrencyController.GetCurrencyById(id);
+			var res = await CryptoCurrencyController.GetCurrencyById(id);
+			ParseCryptos(res);
+			return res;
 		}
 
 		public static async Task<ResponseData> TryFromCache(int count)
 		{
 			SortedSet<CryptoCurrency> srs = new SortedSet<CryptoCurrency>();
 			var cashedCount = cashedInfo.Count;
-			await Task.Run(() => {
-				foreach (var item in cashedInfo.Values)
-				{
-					srs.Add((CryptoCurrency)item);
-				}
-			});
+			if (!lastFullRefresh.HasValue || (DateTime.Now - lastFullRefresh).Value.TotalSeconds > refrashRateSeconds)
+			{
+				cashedCount = 0;
+				lastFullRefresh = DateTime.Now;
+				MessageBox.Show((DateTime.Now - lastFullRefresh).Value.TotalSeconds.ToString());
+				MessageBox.Show("Full reload");
+			}
+			else
+			{
+				MessageBox.Show((DateTime.Now - lastFullRefresh).Value.TotalSeconds.ToString());
+				await Task.Run(() => {
+					int c = 0;
+					foreach (var item in cashedInfo.Values)
+					{
+						srs.Add((CryptoCurrency)item);
+					}
+				});
+			}
+			
 			if (count > cashedCount)
 			{
 				Dictionary<string, string> parms = new Dictionary<string, string> {
@@ -87,15 +103,15 @@ namespace CryptoApp.Cache
 			});
 		}
 
-		public static async Task ParseCryptos(SingleCurrencyResponseModel scrm) {
+		public static async Task ParseCryptos(CryptoCurrency scrm) {
 			await Task.Run(() => {
-				if (cashedInfo.ContainsKey(scrm.data.id))
+				if (cashedInfo.ContainsKey(scrm.id))
 				{
-					cashedInfo[scrm.data.id] = scrm.data;
+					cashedInfo[scrm.id] = scrm;
 				}
 				else
 				{
-					cashedInfo.Add(scrm.data.id, scrm.data);
+					cashedInfo.Add(scrm.id, scrm);
 				}
 			});
 			

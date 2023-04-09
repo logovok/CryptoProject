@@ -51,16 +51,14 @@ namespace CryptoApp
 		private async void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			int nmbr = int.Parse(LbNmb.Content.ToString());
-			if (nmbr-10 >1)
+			if (nmbr-10 >= 10)
 			{
 				LbNmb.Content = (nmbr - 10);
 			}
 			else
 			{
-				LbNmb.Content = 1;
+				LbNmb.Content = 10;
 			}
-			Window1 w1 = new Window1(await Cache.Cashe.TryFromCache("bitcoin"));
-			w1.Show();
 		}
 
 		private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -78,13 +76,19 @@ namespace CryptoApp
 
 		private async void LbNmb_Initialized(object sender, EventArgs e)
 		{
-			var popIds = await Cashe.TryFromCache(int.Parse(LbNmb.Content.ToString()));
+			int requestedCount = int.Parse(LbNmb.Content.ToString());
+			var popIds = await Cashe.TryFromCache(requestedCount);
 
 			//var popIds = Controllers.CryptoCurrencyController
 			//	.LoadCurrency(int.Parse(LbNmb.Content.ToString())).Result;
 			lst1.Items.Clear();
+			int c = 0;
 			foreach (var currency in popIds.data)
 			{
+				if (c++ == requestedCount )
+				{
+					break;
+				}
 				StackPanel panel = new StackPanel();
 
 				TextBlock nameBlock = new TextBlock();
