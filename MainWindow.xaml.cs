@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -32,6 +34,8 @@ namespace CryptoApp
 
 		
 
+		
+
 		private void lst1_Initialized(object sender, EventArgs e)
 		{
 
@@ -41,11 +45,9 @@ namespace CryptoApp
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			LbNmb_Initialized(sender, e);
-            //
-			//System.Windows.MessageBox.Show((await Controllers.CryptoCurrencyController.GetCurrencyById("bitcoin")).ToString());
 		}
 
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private async void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			int nmbr = int.Parse(LbNmb.Content.ToString());
 			if (nmbr-10 >1)
@@ -56,6 +58,8 @@ namespace CryptoApp
 			{
 				LbNmb.Content = 1;
 			}
+			Window1 w1 = new Window1(await Cache.Cashe.TryFromCache("bitcoin"));
+			w1.Show();
 		}
 
 		private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -105,7 +109,12 @@ namespace CryptoApp
 				}
 
 				panel.Children.Add(changeBlock);
-
+				panel.MouseLeftButtonUp += (e, d) =>
+				{
+					Window1 w1 = new(currency);
+					w1.Show();
+					this.Close();
+				};
 
 				lst1.Items.Add(panel);
 			}

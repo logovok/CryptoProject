@@ -24,6 +24,9 @@ namespace CryptoApp.Cache
 			}
 			return await Controllers.CryptoCurrencyController.GetCurrencyById(id);
 		}
+
+		
+
 		public static async Task ParseCryptos(ResponseData rd) {
 			await Task.Run(() => {
 				foreach (var item in rd.data)

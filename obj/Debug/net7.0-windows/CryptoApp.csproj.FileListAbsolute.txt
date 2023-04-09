@@ -19,3 +19,5 @@ C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Crypto
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\CryptoApp.genruntimeconfig.cache
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\ref\CryptoApp.dll
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\CryptoApp_MarkupCompile.lref
+C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Models\Window1.g.cs
+C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Models\Window1.baml

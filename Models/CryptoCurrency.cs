@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CryptoApp.Models
 {
-	internal class CryptoCurrency
+	public class CryptoCurrency
 	{
         public string id { get; set; }
         public string rank { get; set; }

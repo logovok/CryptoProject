@@ -39,7 +39,6 @@ namespace CryptoApp.Controllers
 			string url = $"/assets/{id}";
 			var response = await ApiHandler.QueryAsync(url);
 			string jsonResponse = await response.Content.ReadAsStringAsync();
-			//MessageBox.Show(jsonResponse);
 			SingleCurrencyResponseModel responseData = new SingleCurrencyResponseModel();
 			try
 			{
