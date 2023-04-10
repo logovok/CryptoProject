@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
   </ItemGroup>
 
@@ -16,6 +20,14 @@
     <Reference Include="LiveCharts.Wpf">
       <HintPath>..\..\..\..\.nuget\packages\livecharts.wpf\0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Icons\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="settings.png" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,5 @@
 ﻿using CryptoApp.Controllers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -18,7 +15,7 @@ namespace CryptoApp.Models
 			var res = new CryptoCurrencyHistoryModel();
 			Dictionary<string, string> parms = new Dictionary<string, string> {
 				{ "id", id},
-				{"interval", Cache.Cashe.refrashRate.ToString() }
+				{"interval", Cache.Cashe.chartRefrashRate.ToString() }
 			};
 			var apiResponse = await ApiHandler.QueryAsync($"/assets/{id}/history", parms);
 			var respString = await apiResponse.Content.ReadAsStringAsync();

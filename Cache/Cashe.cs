@@ -4,10 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace CryptoApp.Cache
 {
@@ -18,8 +16,10 @@ namespace CryptoApp.Cache
 	internal class Cashe
 	{
 		public static int refrashRateSeconds = 30;
-		public static int candleRefashRateSeconds = 60;
-		public static ChartRefrashRate refrashRate = ChartRefrashRate.m30;
+		public static ChartRefrashRate chartRefrashRate = ChartRefrashRate.m30;
+		public static void changeRefrashRate() {
+			chartRefrashRate = ChartRefrashRate.h1;
+		}
 		public static Hashtable cashedInfo = new Hashtable();
 		private static DateTime? lastFullRefresh;
 		public static async Task<CryptoCurrency?> TryFromCache(string id) {

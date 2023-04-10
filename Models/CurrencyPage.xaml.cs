@@ -1,27 +1,14 @@
 ﻿using LiveCharts.Defaults;
 using LiveCharts;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LiveCharts.Wpf;
+using System.Windows.Threading;
 
 namespace CryptoApp.Models
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class Window1 : Window
     {
 
@@ -32,7 +19,15 @@ namespace CryptoApp.Models
             InitializeComponent();
             cc = cryptoCurrency;
 
-            fillWithData();
+			DispatcherTimer dt = new DispatcherTimer();
+			dt.Interval = TimeSpan.FromSeconds(Cache.Cashe.refrashRateSeconds);
+			dt.Tick += (s,e) => {
+                fillWithData();
+            };
+			dt.Start();
+
+			fillWithData();
+            fillChartWithData();
         }
 
         public async void fillWithData()
@@ -46,30 +41,33 @@ namespace CryptoApp.Models
             supply.Content = $"Supply {cc.supply.Substring(0, 20)}";
             vol_24h.Content = $"Volume 24H: {cc.volumeUsd24Hr.Substring(0, 20)}";
             mrk_capacity.Content = $"Maket capacity: {cc.marketCapUsd.Substring(0, 20)}";
+			
+		}
+
+        public async void fillChartWithData() {
 			var chartValues = new ChartValues<ObservablePoint>();
 
-            // populate the ChartValues object with the data
-            CryptoCurrencyHistoryModel chm = await CryptoCurrencyHistoryModel.Load(cc.id);
-            int refreshPoints = 0;
-            chm.Data.Reverse();
+
+			CryptoCurrencyHistoryModel chm = await CryptoCurrencyHistoryModel.Load(cc.id);
+			int refreshPoints = 0;
+			chm.Data.Reverse();
 
 			foreach (var item in chm.Data)
-            {
-                chartValues.Add(new ObservablePoint(refreshPoints--, double.Parse(item.PriceUsd.Replace(".", ","))));
-                
+			{
+				chartValues.Add(new ObservablePoint(refreshPoints--, double.Parse(item.PriceUsd.Replace(".", ","))));
+
 
 			}
-            chart.Series = new SeriesCollection
-            {
-	            new LineSeries
-	            {
-		            Title = "Price",
-		            Values = chartValues,
-		            PointGeometrySize =1,
-		            StrokeThickness = 1
-	            }
+			chart.Series = new SeriesCollection
+			{
+				new LineSeries
+				{
+					Title = "Price",
+					Values = chartValues,
+					PointGeometrySize =1,
+					StrokeThickness = 1
+				}
 			};
-
 		}
 
 

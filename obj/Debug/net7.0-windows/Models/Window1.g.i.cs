@@ -127,7 +127,7 @@ namespace CryptoApp.Models {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CryptoApp;component/models/window1.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CryptoApp;V1.0.0.0;component/models/window1.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Models\Window1.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

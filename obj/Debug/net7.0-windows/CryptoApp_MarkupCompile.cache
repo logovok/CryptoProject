@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\App.xaml
-2-1030309447
+31265231787
 
-10-1843369230
+11-48040699
 209-1216305080
-MainWindow.xaml;Models\Window1.xaml;
+MainWindow.xaml;Models\CurrencyPage.xaml;Settings.xaml;
 
 False
 

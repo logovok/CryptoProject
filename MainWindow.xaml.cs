@@ -1,35 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 using CryptoApp.Cache;
 using CryptoApp.Controllers;
 using CryptoApp.Models;
 
 namespace CryptoApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
 	{
 		public MainWindow()
 		{
 			InitializeComponent();
-			
-			
+			DispatcherTimer dt = new DispatcherTimer();
+			dt.Interval = TimeSpan.FromSeconds(Cache.Cashe.refrashRateSeconds);
+			dt.Tick += LbNmb_Initialized;
+			dt.Start();
+
 		}
 
 		
@@ -83,7 +73,7 @@ namespace CryptoApp
 			int c = 0;
 			foreach (var currency in popIds.data)
 			{
-				if (c++ == requestedCount )
+				if (c++ == requestedCount)
 				{
 					break;
 				}
@@ -123,27 +113,41 @@ namespace CryptoApp
 
 				lst1.Items.Add(panel);
 			}
+			
 		}
 
-		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
 
-		}
 
 		private async void Button_Click_3(object sender, RoutedEventArgs e)
 		{
 			string searchRequest = search_bar.Text;
 			if (searchRequest.Equals("Currency name or code"))
 			{
-                System.Windows.MessageBox.Show("Enter name or code of crypto currency");
+                MessageBox.Show("Enter name or code of crypto currency");
 				return;
 			}
 		 	var currency = await CryptoCurrencyController.Search(searchRequest);
 			if (currency != null) {
-				Window1 w1 = new(currency.data[0]);
-				w1.Show();
-				Close();
+				try
+				{
+					Window1 w1 = new(currency.data[0]);
+					w1.Show();
+					Close();
+				}
+				catch (Exception)
+				{
+
+                    MessageBox.Show("Not found");
+				}
+				
 			}
+		}
+
+		private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			Settings sts = new Settings();
+			sts.Show();
+		
 		}
 	}
 }

@@ -19,8 +19,10 @@ C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Crypto
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\CryptoApp.genruntimeconfig.cache
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\ref\CryptoApp.dll
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\CryptoApp_MarkupCompile.lref
-C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Models\Window1.g.cs
-C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Models\Window1.baml
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\bin\Debug\net7.0-windows\LiveCharts.dll
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\bin\Debug\net7.0-windows\LiveCharts.Wpf.dll
 C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\CryptoApp.csproj.CopyComplete
+C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Models\CurrencyPage.g.cs
+C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Settings.g.cs
+C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Models\CurrencyPage.baml
+C:\Users\MNKNTA\source\repos\CryptoApp\CryptoApp\obj\Debug\net7.0-windows\Settings.baml
