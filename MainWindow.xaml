@@ -5,19 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
-        <ListView x:Name="lst1" HorizontalAlignment="Left" Margin="69,42,0,52" Width="302" d:ItemsSource="{d:SampleData ItemCount=5}" Initialized="lst1_Initialized">
+        <ListView x:Name="lst1" Margin="63,42,435,52"  Initialized="lst1_Initialized">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Button" HorizontalAlignment="Left" Height="34" Margin="398,45,0,0" VerticalAlignment="Top" Width="250" Click="Button_Click"/>
-        <Label x:Name="LbNmb" Content="10" HorizontalAlignment="Left" Height="91" Margin="496,121,0,0" VerticalAlignment="Top" Width="54" FontSize="36" Initialized="LbNmb_Initialized"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="45" Margin="420,131,0,0" VerticalAlignment="Top" Width="52" Click="Button_Click_1"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="45" Margin="580,131,0,0" VerticalAlignment="Top" Width="52" ButtonBase.Click="Button_Click_2"/>
+        <Button Content="Load" HorizontalAlignment="Left" Height="34" Margin="408,148,0,0" VerticalAlignment="Top" Width="250" Click="Button_Click" FontFamily="Rockwell Condensed" FontSize="24" Panel.ZIndex="1"/>
+        <Label x:Name="LbNmb" Content="10" HorizontalAlignment="Left" Height="50" Margin="475,94,0,0" VerticalAlignment="Top" Width="120" FontSize="36" Initialized="LbNmb_Initialized" HorizontalContentAlignment="Center" FontFamily="Rockwell Condensed" Panel.ZIndex="1"/>
+        <Button Content="-10" HorizontalAlignment="Left" Height="45" Margin="410,99,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click_1" FontFamily="Rockwell Condensed" FontSize="24" Panel.ZIndex="1"/>
+        <Button Content="+10" HorizontalAlignment="Left" Height="45" Margin="595,99,0,0" VerticalAlignment="Top" Width="61" ButtonBase.Click="Button_Click_2" FontFamily="Rockwell Condensed" FontSize="24" Panel.ZIndex="1"/>
+        <Label Content="Search" HorizontalAlignment="Left" Height="52" Margin="410,221,0,0" VerticalAlignment="Top" Width="248" HorizontalContentAlignment="Center" FontFamily="Rockwell Condensed" FontSize="36" Panel.ZIndex="1"/>
+        <TextBox x:Name="search_bar" HorizontalAlignment="Left" Height="45" Margin="410,273,0,0" TextWrapping="Wrap" Text="Currency name or code" VerticalAlignment="Top" Width="246"  FontFamily="Perpetua" FontSize="22" Panel.ZIndex="1"/>
+        <Button Content="Find!" HorizontalAlignment="Left" Height="32" Margin="410,331,0,0" VerticalAlignment="Top" Width="246" FontFamily="Rockwell Condensed" FontSize="24" Panel.ZIndex="1" Click="Button_Click_3"/>
+        <Label Content="Currencies count" HorizontalAlignment="Left" Height="52" Margin="411,47,0,0" VerticalAlignment="Top" Width="248" HorizontalContentAlignment="Center" FontFamily="Rockwell Condensed" FontSize="36" Panel.ZIndex="1"/>
+        <Rectangle HorizontalAlignment="Left" Height="155" Margin="386,42,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
+        <Rectangle HorizontalAlignment="Left" Height="150" Margin="386,223,0,0" Stroke="Black" VerticalAlignment="Top" Width="302"/>
 
     </Grid>
 </Window>

@@ -11,13 +11,18 @@ using System.Windows;
 
 namespace CryptoApp.Cache
 {
+	public enum ChartRefrashRate{
+		m1, m5, m15, m30, h1, h2, h6, h12, d1
+	}
+
 	internal class Cashe
 	{
 		public static int refrashRateSeconds = 30;
 		public static int candleRefashRateSeconds = 60;
+		public static ChartRefrashRate refrashRate = ChartRefrashRate.m30;
 		public static Hashtable cashedInfo = new Hashtable();
 		private static DateTime? lastFullRefresh;
-		public static async Task<CryptoCurrency> TryFromCache(string id) {
+		public static async Task<CryptoCurrency?> TryFromCache(string id) {
 			if (cashedInfo.ContainsKey(id))
 			{
 				if ((DateTime.Now - ((CryptoCurrency)cashedInfo[id]).updateTime).TotalSeconds < refrashRateSeconds)
@@ -27,7 +32,7 @@ namespace CryptoApp.Cache
 				
 			}
 			var res = await CryptoCurrencyController.GetCurrencyById(id);
-			ParseCryptos(res);
+			await ParseCryptos(res);
 			return res;
 		}
 
@@ -39,14 +44,10 @@ namespace CryptoApp.Cache
 			{
 				cashedCount = 0;
 				lastFullRefresh = DateTime.Now;
-				MessageBox.Show((DateTime.Now - lastFullRefresh).Value.TotalSeconds.ToString());
-				MessageBox.Show("Full reload");
 			}
 			else
 			{
-				MessageBox.Show((DateTime.Now - lastFullRefresh).Value.TotalSeconds.ToString());
 				await Task.Run(() => {
-					int c = 0;
 					foreach (var item in cashedInfo.Values)
 					{
 						srs.Add((CryptoCurrency)item);
@@ -65,7 +66,7 @@ namespace CryptoApp.Cache
 				var responseText = await apiResponse.Content.ReadAsStringAsync();
 				try
 				{
-					ResponseData rdForRest = JsonSerializer.Deserialize<ResponseData>(responseText);
+					ResponseData rdForRest = JsonSerializer.Deserialize<ResponseData>(responseText)??new ResponseData();
 					foreach (var item in rdForRest.data)
 					{
 						srs.Add(item);

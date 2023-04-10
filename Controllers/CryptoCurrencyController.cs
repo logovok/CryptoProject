@@ -12,7 +12,7 @@ namespace CryptoApp.Controllers
 {
 	internal class CryptoCurrencyController
 	{
-		public static async Task<ResponseData> LoadCurrency(int limit) {
+		public static async Task<ResponseData?> LoadCurrency(int limit) {
 			HttpClient client = new HttpClient();
 			var queryParams = new Dictionary<string, string>
 			{
@@ -35,7 +35,6 @@ namespace CryptoApp.Controllers
 		}
 
 		public static async Task<CryptoCurrency> GetCurrencyById(string id) {
-			HttpClient client = new HttpClient();
 			string url = $"/assets/{id}";
 			var response = await ApiHandler.QueryAsync(url);
 			string jsonResponse = await response.Content.ReadAsStringAsync();
@@ -53,6 +52,18 @@ namespace CryptoApp.Controllers
 			return responseData.data;
 		}
 
+		public static async Task<ResponseData> Search(string userInput) {
+			string url = "/assets";
+			Dictionary<string, string> parms = new Dictionary<string, string> {
+				{ "search", userInput},
+				{ "limit", "1"}
+			};
+			using var response = await ApiHandler.QueryAsync(url, parms);
+			response.EnsureSuccessStatusCode();
+			var respString = await response.Content.ReadAsStringAsync();
+			return JsonSerializer.Deserialize<ResponseData>(respString);
+
+		}
 
 	}
 

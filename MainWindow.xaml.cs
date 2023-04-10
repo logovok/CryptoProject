@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CryptoApp.Cache;
+using CryptoApp.Controllers;
 using CryptoApp.Models;
 
 namespace CryptoApp
@@ -48,9 +49,9 @@ namespace CryptoApp
 			LbNmb_Initialized(sender, e);
 		}
 
-		private async void Button_Click_1(object sender, RoutedEventArgs e)
+		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			int nmbr = int.Parse(LbNmb.Content.ToString());
+			int nmbr = int.Parse((LbNmb.Content.ToString()) ?? "10");
 			if (nmbr-10 >= 10)
 			{
 				LbNmb.Content = (nmbr - 10);
@@ -63,7 +64,7 @@ namespace CryptoApp
 
 		private void Button_Click_2(object sender, RoutedEventArgs e)
 		{
-			int nmbr = int.Parse(LbNmb.Content.ToString());
+			int nmbr = int.Parse((LbNmb.Content.ToString()) ?? "10");
 			if (nmbr + 10 <= 100)
 			{
 				LbNmb.Content = (nmbr + 10);
@@ -76,11 +77,8 @@ namespace CryptoApp
 
 		private async void LbNmb_Initialized(object sender, EventArgs e)
 		{
-			int requestedCount = int.Parse(LbNmb.Content.ToString());
+			int requestedCount = int.Parse((LbNmb.Content.ToString())??"10");
 			var popIds = await Cashe.TryFromCache(requestedCount);
-
-			//var popIds = Controllers.CryptoCurrencyController
-			//	.LoadCurrency(int.Parse(LbNmb.Content.ToString())).Result;
 			lst1.Items.Clear();
 			int c = 0;
 			foreach (var currency in popIds.data)
@@ -124,6 +122,27 @@ namespace CryptoApp
 				};
 
 				lst1.Items.Add(panel);
+			}
+		}
+
+		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+
+		}
+
+		private async void Button_Click_3(object sender, RoutedEventArgs e)
+		{
+			string searchRequest = search_bar.Text;
+			if (searchRequest.Equals("Currency name or code"))
+			{
+                System.Windows.MessageBox.Show("Enter name or code of crypto currency");
+				return;
+			}
+		 	var currency = await CryptoCurrencyController.Search(searchRequest);
+			if (currency != null) {
+				Window1 w1 = new(currency.data[0]);
+				w1.Show();
+				Close();
 			}
 		}
 	}

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts.Defaults;
+using LiveCharts;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -13,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LiveCharts.Wpf;
 
 namespace CryptoApp.Models
 {
@@ -23,7 +26,7 @@ namespace CryptoApp.Models
     {
 
 
-        CryptoCurrency cc;
+        CryptoCurrency? cc;
         public Window1(CryptoCurrency cryptoCurrency)
         {
             InitializeComponent();
@@ -34,7 +37,7 @@ namespace CryptoApp.Models
 
         public async void fillWithData()
         {
-            cc = await Cache.Cashe.TryFromCache(cc.id);
+            cc = (await Cache.Cashe.TryFromCache(cc.id));
             label.Content = cc.name;
             label_Copy.Content = $"#{cc.rank} by popularity";
             price.Content = $"Price: ${cc.priceUsd.Substring(0, 12)}";
@@ -43,11 +46,35 @@ namespace CryptoApp.Models
             supply.Content = $"Supply {cc.supply.Substring(0, 20)}";
             vol_24h.Content = $"Volume 24H: {cc.volumeUsd24Hr.Substring(0, 20)}";
             mrk_capacity.Content = $"Maket capacity: {cc.marketCapUsd.Substring(0, 20)}";
-        }
+			var chartValues = new ChartValues<ObservablePoint>();
+
+            // populate the ChartValues object with the data
+            CryptoCurrencyHistoryModel chm = await CryptoCurrencyHistoryModel.Load(cc.id);
+            int refreshPoints = 0;
+            chm.Data.Reverse();
+
+			foreach (var item in chm.Data)
+            {
+                chartValues.Add(new ObservablePoint(refreshPoints--, double.Parse(item.PriceUsd.Replace(".", ","))));
+                
+
+			}
+            chart.Series = new SeriesCollection
+            {
+	            new LineSeries
+	            {
+		            Title = "Price",
+		            Values = chartValues,
+		            PointGeometrySize =1,
+		            StrokeThickness = 1
+	            }
+			};
+
+		}
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+		private void Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             mw.Show();

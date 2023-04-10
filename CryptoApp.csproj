@@ -12,4 +12,10 @@
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="LiveCharts.Wpf">
+      <HintPath>..\..\..\..\.nuget\packages\livecharts.wpf\0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
